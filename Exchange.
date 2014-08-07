@@ -1,0 +1,14 @@
+//Export user mailboxes to files:
+
+//1
+
+foreach ($i in (Get-Mailbox)) { New-MailboxExportRequest -Mailbox $i -FilePath "\\AZUA\Exports\$($i.Alias).pst" }
+
+//2
+
+foreach ($i in (Get-Mailbox | Where {$_.ExchangeVersion.ExchangeBuild.Major -eq 14})) { New-MailboxExportRequest -Mailbox $i -FilePath "\\AZUA\Exports\${$i.Alias).pst" }
+
+//3
+
+foreach ($i in (Import-Csv .\exports.csv)) { New-MailboxExportRequest -Mailbox $i.Alias -FilePath "\\AZUA\Exports\$($i.Alias).pst" }
+
